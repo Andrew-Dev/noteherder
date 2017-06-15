@@ -10,6 +10,11 @@ class Main extends Component {
         super()
         this.state = {
             notes: [],
+            currentNote: {
+                title: '',
+                text: '',
+                id: '',
+            },
         }
     }
 
@@ -21,11 +26,19 @@ class Main extends Component {
             text: 'This is a test',
         }
         this.setState({notes: [...this.state.notes,note]})
-        console.log("add note clicked")
     }
 
     noteClicked(note) {
         console.log("individual note clicked",note)
+        this.setState({
+            currentNote: note,
+        });
+    }
+
+    updateNote(note) {
+        this.setState({
+            currentNote: note,
+        })
     }
 
     render() {
@@ -33,7 +46,7 @@ class Main extends Component {
             <main className="Main">
                 <Sidebar addNote={this.addNote.bind(this)} />
                 <NoteList notes={this.state.notes} selectNote={this.noteClicked.bind(this)} />
-                <NoteForm/>
+                <NoteForm note={this.state.currentNote} updateNote={this.updateNote.bind(this)} />
             </main>
         )
     }

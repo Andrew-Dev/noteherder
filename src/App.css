@@ -1,24 +1,18 @@
+@import url("https://fonts.googleapis.com/css?family=Fauna+One|Oxygen:400,300,700");
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+* {
+  box-sizing: border-box;
+}
+
+
+img {
+  vertical-align: middle;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  font-family: Oxygen, Helvetica, Arial, sans-serif; 
+  font-size: 14px;
+  line-height: 1.42857143;
+  margin: 0;  
 }

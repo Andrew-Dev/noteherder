@@ -33,7 +33,8 @@ i.fa-trash-o {
   vertical-align: middle;
   margin-left: 1em; }
   i.fa-trash-o:hover {
-    color: #999; }
+    color: #999; 
+}
 
 .Main {
   display: flex;

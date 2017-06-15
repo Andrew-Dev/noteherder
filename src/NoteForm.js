@@ -3,7 +3,18 @@ import './NoteForm.css'
 
 class NoteForm extends React.Component {
     render() {
-        return <p>NOTE FORM!</p>
+        return (
+            <div className="NoteForm">
+                <form>
+                <p>
+                    <input type="text" name="title" placeholder="Title your note" value="" />
+                </p>
+                <p>
+                    <textarea name="body" cols="50" rows="10" placeholder="Just start typing..."></textarea>
+                </p>
+                </form>
+            </div>
+        )
     }
 }
 

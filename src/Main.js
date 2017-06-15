@@ -22,8 +22,8 @@ class Main extends Component {
         event.preventDefault()
         const note = {
             id: Math.random().toString(36).substring(8),
-            title: 'Test note',
-            text: 'This is a test',
+            title: 'New note',
+            text: '',
         }
         this.setState({notes: [...this.state.notes,note]})
     }
@@ -36,8 +36,13 @@ class Main extends Component {
     }
 
     updateNote(note) {
+        let notes = this.state.notes
+        console.log("update note",notes.indexOf(note),note)
+        notes.splice(notes.indexOf(note),1)
+        notes = [note,...notes]
         this.setState({
             currentNote: note,
+            notes
         })
     }
 

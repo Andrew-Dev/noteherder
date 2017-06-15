@@ -5,12 +5,15 @@ class NoteForm extends React.Component {
     textChange(event) {
         event.preventDefault()
         console.log(event.target)
-        this.props.note.text = event.target.textContent
+        this.props.note.text = event.target.value
+        console.log("text change",event.target.value)
+        this.props.updateNote(this.props.note)
     }
 
     titleChange(event) {
         event.preventDefault()
         this.props.note.title = event.target.value
+        this.props.updateNote(this.props.note)
     }
     
     render() {

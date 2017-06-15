@@ -16,6 +16,11 @@ class NoteForm extends React.Component {
         this.props.updateNote(this.props.note)
     }
     
+    deleteNote(event) {
+        event.preventDefault()
+        this.props.deleteNote(this.props.note)
+    }
+
     render() {
         return (
             <div className="NoteForm">
@@ -24,9 +29,10 @@ class NoteForm extends React.Component {
                     <input type="text" name="title" placeholder="Title your note" value={this.props.note.title}  onChange={this.titleChange.bind(this)}/>
                 </p>
                 <p>
-                    <textarea name="body" cols="50" rows="10" placeholder="Just start typing..." onChange={this.textChange.bind(this)}>{this.props.note.text}</textarea>
+                    <textarea name="body" cols="50" rows="10" placeholder="Just start typing..." onChange={this.textChange.bind(this)} value={this.props.note.text}></textarea>
                 </p>
                 </form>
+                <button class="button" onClick={this.deleteNote.bind(this)}>Delete</button>
             </div>
         )
     }

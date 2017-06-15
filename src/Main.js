@@ -25,7 +25,7 @@ class Main extends Component {
             title: 'New note',
             text: '',
         }
-        this.setState({notes: [...this.state.notes,note]})
+        this.setState({notes: [note,...this.state.notes]})
     }
 
     noteClicked(note) {
@@ -46,12 +46,25 @@ class Main extends Component {
         })
     }
 
+    deleteNote(note) {
+        let notes = this.state.notes
+        notes.splice(notes.indexOf(note),1)
+        this.setState({
+            currentNote: {
+                title: '',
+                text: '',
+                id: '',
+            },
+            notes
+        })
+    }
+
     render() {
         return (
             <main className="Main">
                 <Sidebar addNote={this.addNote.bind(this)} />
                 <NoteList notes={this.state.notes} selectNote={this.noteClicked.bind(this)} />
-                <NoteForm note={this.state.currentNote} updateNote={this.updateNote.bind(this)} />
+                <NoteForm note={this.state.currentNote} updateNote={this.updateNote.bind(this)} deleteNote={this.deleteNote.bind(this)} />
             </main>
         )
     }

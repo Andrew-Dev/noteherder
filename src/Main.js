@@ -3,6 +3,9 @@ import Sidebar from './Sidebar'
 import NoteList from './NoteList'
 import NoteForm from './NoteForm'
 import './Main.css'
+import base from './base'
+import SignIn from './SignIn'
+import SignOut from './SignOut'
 
 class Main extends Component {
 
@@ -16,6 +19,36 @@ class Main extends Component {
                 id: '',
             },
         }
+    }
+
+    signedIn = () => {
+        return this.state.uid
+    }
+
+    signOut = () => {
+        this.setState({
+            uid: null
+        })
+    }
+
+    authHandler = (user) => {
+        this.setState({uid: user.uid})
+    }
+
+    notesArr() {
+        let arr = []
+        Object.keys(this.state.notes).map((key) => {
+            arr.push(this.state.notes[key])
+        })
+        return arr
+    }
+
+    componentWillMount() {
+        base.syncState('notes',{
+            context: this,
+            state: 'notes',
+            asArray: true,
+        });
     }
 
     addNote(event) {
@@ -59,13 +92,23 @@ class Main extends Component {
         })
     }
 
-    render() {
+    renderMain() {
         return (
             <main className="Main">
+                <SignOut signOut={this.signOut} />
                 <Sidebar addNote={this.addNote.bind(this)} />
                 <NoteList notes={this.state.notes} selectNote={this.selectNote.bind(this)} />
                 <NoteForm note={this.state.currentNote} updateNote={this.updateNote.bind(this)} deleteNote={this.deleteNote.bind(this)} />
             </main>
+        )
+    }
+
+    render() {
+        return (
+            <div className="App">
+                {this.signedIn() ? this.renderMain() : <SignIn authHandler={this.authHandler}/>}
+            </div>
+            
         )
     }
     

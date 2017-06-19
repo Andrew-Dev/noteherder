@@ -3,7 +3,7 @@ import Sidebar from './Sidebar'
 import NoteList from './NoteList'
 import NoteForm from './NoteForm'
 import './Main.css'
-import base from './base'
+import base, { auth } from './base'
 import SignIn from './SignIn'
 import SignOut from './SignOut'
 
@@ -26,13 +26,13 @@ class Main extends Component {
     }
 
     signOut = () => {
-        this.setState({
+        auth.signOut().then(this.setState({
             uid: null
-        })
+        }))
     }
 
     authHandler = (user) => {
-        this.setState({uid: user.uid})
+        this.setState({uid: user.uid},this.syncNotes)
     }
 
     notesArr() {
@@ -44,7 +44,11 @@ class Main extends Component {
     }
 
     componentWillMount() {
-        base.syncState('notes',{
+        
+    }
+
+    syncNotes = () => {
+        base.syncState(`${this.state.uid}/notes`,{
             context: this,
             state: 'notes',
             asArray: true,

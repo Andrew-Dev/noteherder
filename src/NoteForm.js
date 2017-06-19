@@ -2,6 +2,15 @@ import React, { Component } from 'react'
 import './NoteForm.css'
 
 class NoteForm extends React.Component {
+
+    constructor(props) {
+        super(props)
+
+        this.textChange = this.textChange.bind(this);
+        this.titleChange = this.titleChange.bind(this);
+        this.deleteNote = this.deleteNote.bind(this);    
+    }
+
     textChange(event) {
         event.preventDefault()
         console.log(event.target)
@@ -26,13 +35,13 @@ class NoteForm extends React.Component {
             <div className="NoteForm">
                 <form>
                 <p>
-                    <input type="text" name="title" placeholder="Title your note" value={this.props.note.title}  onChange={this.titleChange.bind(this)}/>
+                    <input type="text" name="title" placeholder="Title your note" value={this.props.note.title}  onChange={this.titleChange}/>
                 </p>
                 <p>
-                    <textarea name="body" cols="50" rows="10" placeholder="Just start typing..." onChange={this.textChange.bind(this)} value={this.props.note.text}></textarea>
+                    <textarea name="body" placeholder="Just start typing..." onChange={this.textChange} value={this.props.note.text}></textarea>
                 </p>
                 </form>
-                <button class="button" onClick={this.deleteNote.bind(this)}>Delete</button>
+                <button className="button" onClick={this.deleteNote}>Delete</button>
             </div>
         )
     }

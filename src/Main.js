@@ -28,7 +28,7 @@ class Main extends Component {
         this.setState({notes: [note,...this.state.notes]})
     }
 
-    noteClicked(note) {
+    selectNote(note) {
         console.log("individual note clicked",note)
         this.setState({
             currentNote: note,
@@ -63,7 +63,7 @@ class Main extends Component {
         return (
             <main className="Main">
                 <Sidebar addNote={this.addNote.bind(this)} />
-                <NoteList notes={this.state.notes} selectNote={this.noteClicked.bind(this)} />
+                <NoteList notes={this.state.notes} selectNote={this.selectNote.bind(this)} />
                 <NoteForm note={this.state.currentNote} updateNote={this.updateNote.bind(this)} deleteNote={this.deleteNote.bind(this)} />
             </main>
         )

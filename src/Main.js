@@ -68,13 +68,12 @@ class Main extends Component {
     }
 
     addNote(event) {
-        event.preventDefault()
         const note = {
             id: Math.random().toString(36).substring(8),
             title: '',
             text: '',
         }
-        this.setState({notes: [note,...this.state.notes]})
+        this.setState({notes: [note,...this.state.notes], currentNote: note})
     }
 
     selectNote(note) {
@@ -87,6 +86,10 @@ class Main extends Component {
     updateNote(note) {
         let notes = this.state.notes
         let filtered = notes.filter(x => x.id === note.id)[0]
+        if(!filtered) {
+            this.setState({notes: [note,...this.state.notes], currentNote: note})
+            return
+        }
         console.log("update note",notes.indexOf(filtered),filtered)
         notes.splice(notes.indexOf(filtered),1)
         notes = [note,...notes]

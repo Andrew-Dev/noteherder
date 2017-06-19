@@ -41,7 +41,7 @@ class NoteForm extends React.Component {
                     <textarea name="body" placeholder="Just start typing..." onChange={this.textChange} value={this.props.note.text}></textarea>
                 </p>
                 </form>
-                <button className="button" onClick={this.deleteNote}>Delete</button>
+                <button className="button" onClick={this.deleteNote}><i className="fa fa-trash-o"/></button>
             </div>
         )
     }

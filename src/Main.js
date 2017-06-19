@@ -16,7 +16,7 @@ class Main extends Component {
             currentNote: {
                 title: '',
                 text: '',
-                id: '',
+                id: Math.random().toString(36).substring(8),
             },
         }
     }
@@ -26,7 +26,15 @@ class Main extends Component {
     }
 
     signOut = () => {
-        auth.signOut()
+        auth.signOut().then(() => {
+            base.removeBinding(this.ref)
+            this.setState({notes:[]})
+            this.setState({currentNote: {
+                title: '',
+                text: '',
+                id: Math.random().toString(36).substring(8),
+            }})
+        })
     }
 
     authHandler = (user) => {
@@ -52,7 +60,7 @@ class Main extends Component {
     }
 
     syncNotes = () => {
-        base.syncState(`${this.state.uid}/notes`,{
+        this.ref = base.syncState(`${this.state.uid}/notes`,{
             context: this,
             state: 'notes',
             asArray: true,
@@ -63,7 +71,7 @@ class Main extends Component {
         event.preventDefault()
         const note = {
             id: Math.random().toString(36).substring(8),
-            title: 'New note',
+            title: '',
             text: '',
         }
         this.setState({notes: [note,...this.state.notes]})
@@ -90,7 +98,8 @@ class Main extends Component {
 
     deleteNote(note) {
         let notes = this.state.notes
-        notes.splice(notes.indexOf(note),1)
+        let filtered = notes.filter(x => x.id === note.id)[0]
+        notes.splice(notes.indexOf(filtered),1)
         this.setState({
             currentNote: {
                 title: '',

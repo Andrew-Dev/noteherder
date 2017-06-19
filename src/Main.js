@@ -26,9 +26,7 @@ class Main extends Component {
     }
 
     signOut = () => {
-        auth.signOut().then(this.setState({
-            uid: null
-        }))
+        auth.signOut()
     }
 
     authHandler = (user) => {
@@ -44,7 +42,13 @@ class Main extends Component {
     }
 
     componentWillMount() {
-        
+        auth.onAuthStateChanged((user) => {
+            if(user) {
+                this.authHandler(user)
+            } else {
+                this.setState({uid: null})
+            }
+        })
     }
 
     syncNotes = () => {

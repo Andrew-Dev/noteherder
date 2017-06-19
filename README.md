@@ -1,4 +1,4 @@
-#Noteherder
+# Noteherder
 
 A notetaking app made for Xtern Bootcamp in React and Firebase
 

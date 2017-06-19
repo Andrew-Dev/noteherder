@@ -74,8 +74,9 @@ class Main extends Component {
 
     updateNote(note) {
         let notes = this.state.notes
-        console.log("update note",notes.indexOf(note),note)
-        notes.splice(notes.indexOf(note),1)
+        let filtered = notes.filter(x => x.id === note.id)[0]
+        console.log("update note",notes.indexOf(filtered),filtered)
+        notes.splice(notes.indexOf(filtered),1)
         notes = [note,...notes]
         this.setState({
             currentNote: note,

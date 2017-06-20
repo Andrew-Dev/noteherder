@@ -59,7 +59,7 @@ class Main extends Component {
     }
 
     syncNotes = () => {
-        this.ref = base.syncState(`${this.state.uid}/notes`,{
+        this.ref = base.syncState(`notes/${this.state.uid}`,{
             context: this,
             state: 'notes',
             asArray: true,

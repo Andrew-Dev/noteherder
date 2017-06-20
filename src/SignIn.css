@@ -89,6 +89,7 @@
 }
 
 .loginForm .formItem input {
+    outline: none;
     margin-bottom: 20px;
     border: none;
     font-size: 150%;
@@ -96,5 +97,9 @@
     font-family: "Fauna One";
     color: #008BF8;
     font-weight: 400;
-    border-bottom: dotted #008BF8;
+    border-bottom: solid #878787;
+}
+
+.loginForm .formItem input:focus {
+    border-bottom: solid #008BF8;
 }

@@ -5,7 +5,6 @@ import NoteForm from './NoteForm'
 import './Main.css'
 import base, { auth } from './base'
 import SignIn from './SignIn'
-import SignOut from './SignOut'
 
 class Main extends Component {
 
@@ -116,8 +115,7 @@ class Main extends Component {
     renderMain() {
         return (
             <main className="Main">
-                <SignOut signOut={this.signOut} />
-                <Sidebar addNote={this.addNote.bind(this)} />
+                <Sidebar addNote={this.addNote.bind(this)} signOut={this.signOut} />
                 <NoteList notes={this.state.notes} selectNote={this.selectNote.bind(this)} />
                 <NoteForm note={this.state.currentNote} updateNote={this.updateNote.bind(this)} deleteNote={this.deleteNote.bind(this)} />
             </main>

@@ -11,9 +11,6 @@ class SignIn extends Component {
             email: '',
             password: ''
         }
-        auth.onAuthStateChanged((user) => {
-            this.setState({email: '', password: ''})
-        })
     }
 
     authenticateGithub = () => {

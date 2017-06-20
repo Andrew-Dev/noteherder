@@ -11,6 +11,9 @@ class SignIn extends Component {
             email: '',
             password: ''
         }
+        auth.onAuthStateChanged((user) => {
+            this.setState({email: '', password: ''})
+        })
     }
 
     authenticateGithub = () => {
@@ -18,11 +21,19 @@ class SignIn extends Component {
     }
 
     authenticatePassword = () => {
-
+        auth.signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+            const errorCode = error.code
+            const errorMessage = error.message
+            alert(errorMessage)
+        });
     }
 
     registerUser = () => {
-        
+        auth.createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+            const errorCode = error.code
+            const errorMessage = error.message
+            alert(errorMessage)
+        });
     }
     
     render() {
@@ -34,19 +45,17 @@ class SignIn extends Component {
                 <h1 className="loginTitle">NOTEHERDER</h1>
                 <h2 className="loginSubtitle">Take notes, beautifully.</h2>
                 <div className="loginForm">
-                    <form>
-                        <p className="formItem"><input type="text" name="email" placeholder="E-Mail" onChange={(event) => this.setState({email:event.target.value})}/></p>
-                        <p className="formItem"><input type="password" name="password" placeholder="Password" onChange={(event) => this.setState({password:event.target.value})}/></p>
+                        <p className="formItem"><input type="text" name="email" placeholder="E-Mail" value={this.state.email} onChange={(event) => this.setState({email:event.target.value})}/></p>
+                        <p className="formItem"><input type="password" name="password" placeholder="Password" value={this.state.password} onChange={(event) => this.setState({password:event.target.value})}/></p>
                         <button className="signIn" onClick={this.authenticatePassword}>
                             <i className="fa fa-sign-in"/> Sign in
                         </button>
-                        <button className="signUp" onClick={this.authenticatePassword}>
+                        <button className="signUp" onClick={this.registerUser}>
                             <i className="fa fa-user-plus"/> Create account
                         </button>
                         <button className="signInGH" onClick={this.authenticateGithub}>
                             <i className="fa fa-github"/> Sign in with GitHub
                         </button>
-                    </form>
                 </div>
             </div>
             

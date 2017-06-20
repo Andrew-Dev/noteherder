@@ -1,0 +1,9 @@
+.SignOut {
+    position: absolute;
+    bottom: 1rem;
+}
+
+.SignOut button {
+    font-size: 2rem;
+    outline: none;
+}

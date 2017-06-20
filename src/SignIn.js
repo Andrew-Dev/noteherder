@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './SignIn.css'
-import { auth, githubProvider } from './base'
+import { auth, githubProvider, googleProvider } from './base'
 import quill from './quill.svg'
 
 class SignIn extends Component {
@@ -15,6 +15,10 @@ class SignIn extends Component {
 
     authenticateGithub = () => {
         auth.signInWithPopup(githubProvider)
+    }
+
+    authenticateGoogle = () => {
+        auth.signInWithPopup(googleProvider)
     }
 
     authenticatePassword = () => {
@@ -52,6 +56,9 @@ class SignIn extends Component {
                         </button>
                         <button className="signInGH" onClick={this.authenticateGithub}>
                             <i className="fa fa-github"/> Sign in with GitHub
+                        </button>
+                        <button className="signInGoog" onClick={this.authenticateGoogle}>
+                            <i className="fa fa-google"/> Sign in with Google
                         </button>
                 </div>
             </div>

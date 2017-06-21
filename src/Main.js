@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import Sidebar from './Sidebar'
 import NoteList from './NoteList'
 import NoteForm from './NoteForm'
@@ -108,14 +108,14 @@ class Main extends Component {
             currentNote: {
                 title: '',
                 text: '',
-                id: '',
+                id: Math.random().toString(36).substring(8),
             },
             notes
         })
     }
 
     getNoteById(id) {
-        console.log("this getnote",this)
+        console.log("this getnote",this,this.state.notes)
         return this.state.notes.filter(x => x.id === id)[0]
     }
 
@@ -132,6 +132,7 @@ class Main extends Component {
     render() {
         return (
             <div>
+                {this.signedIn() ?
                 <Switch>
                     <Route path="/notes/:id" render={(navProps) => { 
                         return (
@@ -141,7 +142,20 @@ class Main extends Component {
                             <NoteForm id={navProps.match.params.id} note={this.state.currentNote} updateNote={this.updateNote.bind(this)} deleteNote={this.deleteNote.bind(this)} getNote={this.getNoteById.bind(this)} />
                         </main>
                     )}} />
-                </Switch>
+                    <Route path="/notes" render={(navProps) => { 
+                        return (
+                        <main className="Main">
+                            <Sidebar addNote={this.addNote.bind(this)} signOut={this.signOut} />
+                            <NoteList notes={this.state.notes} selectNote={this.selectNote.bind(this)} />
+                            <NoteForm note={this.state.currentNote} updateNote={this.updateNote.bind(this)} deleteNote={this.deleteNote.bind(this)} getNote={this.getNoteById.bind(this)} />
+                        </main>
+                    )}} />
+                    <Route path="/" render={() => <Redirect to="/notes" />}/>
+                </Switch> :
+                <div>
+                    <Route path="/sign-in" component={SignIn} />
+                    <Route path="/" render={() => <Redirect to="/sign-in" />}/>
+                </div>}
             </div>
         )
     }

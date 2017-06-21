@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './NoteForm.css'
+import { NavLink, Router as BrowserRouter } from 'react-router-dom'
 
 class NoteForm extends React.Component {
 
@@ -22,6 +23,7 @@ class NoteForm extends React.Component {
         setTimeout(() => {
             if(this.props.id) {
                 const note = this.props.getNote(this.props.id)
+                console.log("props id is true", note)
                 this.setState({ note })
                 return
             }
@@ -52,7 +54,7 @@ class NoteForm extends React.Component {
     }
     
     deleteNote(event) {
-        event.preventDefault()
+        //event.preventDefault()
         this.props.deleteNote(this.state.note)
     }
 
@@ -67,7 +69,7 @@ class NoteForm extends React.Component {
                     <textarea name="body" placeholder="Just start typing..." onChange={this.textChange} value={this.state.note.text}></textarea>
                 </p>
                 </form>
-                <button className="button" onClick={this.deleteNote}><i className="fa fa-trash-o"/></button>
+                <NavLink to={`/notes`}><button className="button" onClick={this.deleteNote}><i className="fa fa-trash-o"/></button></NavLink>
             </div>
         )
     }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import Sidebar from './Sidebar'
 import NoteList from './NoteList'
 import NoteForm from './NoteForm'
@@ -112,20 +113,21 @@ class Main extends Component {
         })
     }
 
-    renderMain() {
-        return (
-            <main className="Main">
-                <Sidebar addNote={this.addNote.bind(this)} signOut={this.signOut} />
-                <NoteList notes={this.state.notes} selectNote={this.selectNote.bind(this)} />
-                <NoteForm note={this.state.currentNote} updateNote={this.updateNote.bind(this)} deleteNote={this.deleteNote.bind(this)} />
-            </main>
-        )
-    }
-
     render() {
         return (
             <div className="App">
-                {this.signedIn() ? this.renderMain() : <SignIn authHandler={this.authHandler}/>}
+                <Switch>
+                    <Route path='/notes' render={() => (
+                        <main className="Main">
+                            <Sidebar addNote={this.addNote.bind(this)} signOut={this.signOut} />
+                            <NoteList notes={this.state.notes} selectNote={this.selectNote.bind(this)} />
+                            <NoteForm note={this.state.currentNote} updateNote={this.updateNote.bind(this)} deleteNote={this.deleteNote.bind(this)} />
+                        </main>
+                    )}/>
+                    <Route path="/sign-in" component={SignIn} />
+                    <Route render={() => <Redirect to="/notes"/>} />
+                </Switch>
+                {/*{this.signedIn() ? this.renderMain() : <SignIn authHandler={this.authHandler}/>}*/}
             </div>
             
         )

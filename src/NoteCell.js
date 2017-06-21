@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 class NoteCell extends Component {
 
     cellClick(event) {
-        event.preventDefault()
         console.log("cell click",this.props);
         this.props.noteClicked(this.props.note)
     }

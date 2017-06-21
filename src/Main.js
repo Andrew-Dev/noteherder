@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import Sidebar from './Sidebar'
 import NoteList from './NoteList'
 import NoteForm from './NoteForm'
@@ -11,6 +11,7 @@ class Main extends Component {
 
     constructor() {
         super()
+        console.log("constructor")
         this.state = {
             notes: [],
             currentNote: {
@@ -113,23 +114,35 @@ class Main extends Component {
         })
     }
 
+    getNoteById(id) {
+        console.log("this getnote",this)
+        return this.state.notes.filter(x => x.id === id)[0]
+    }
+
+    renderMain() {
+        return (
+            <main className="Main">
+                <Sidebar addNote={this.addNote.bind(this)} signOut={this.signOut} />
+                <NoteList notes={this.state.notes} selectNote={this.selectNote.bind(this)} />
+                <NoteForm note={this.state.currentNote} updateNote={this.updateNote.bind(this)} deleteNote={this.deleteNote.bind(this)} />
+            </main>
+        )
+    }
+
     render() {
         return (
-            <div className="App">
+            <div>
                 <Switch>
-                    <Route path='/notes' render={() => (
+                    <Route path="/notes/:id" render={(navProps) => { 
+                        return (
                         <main className="Main">
                             <Sidebar addNote={this.addNote.bind(this)} signOut={this.signOut} />
                             <NoteList notes={this.state.notes} selectNote={this.selectNote.bind(this)} />
-                            <NoteForm note={this.state.currentNote} updateNote={this.updateNote.bind(this)} deleteNote={this.deleteNote.bind(this)} />
+                            <NoteForm id={navProps.match.params.id} note={this.state.currentNote} updateNote={this.updateNote.bind(this)} deleteNote={this.deleteNote.bind(this)} getNote={this.getNoteById.bind(this)} />
                         </main>
-                    )}/>
-                    <Route path="/sign-in" component={SignIn} />
-                    <Route render={() => <Redirect to="/notes"/>} />
+                    )}} />
                 </Switch>
-                {/*{this.signedIn() ? this.renderMain() : <SignIn authHandler={this.authHandler}/>}*/}
             </div>
-            
         )
     }
     

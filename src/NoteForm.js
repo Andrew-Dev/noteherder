@@ -27,7 +27,7 @@ class NoteForm extends React.Component {
                 this.setState({ note })
                 return
             }
-        },2000)
+        },1000)
         
     }
 

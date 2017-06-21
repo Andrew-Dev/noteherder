@@ -19,6 +19,7 @@ class Main extends Component {
                 text: '',
                 id: Math.random().toString(36).substring(8),
             },
+            uid: localStorage.getItem('uid')
         }
     }
 
@@ -40,6 +41,7 @@ class Main extends Component {
 
     authHandler = (user) => {
         this.setState({uid: user.uid},this.syncNotes)
+        localStorage.setItem('uid',user.uid)
     }
 
     notesArr() {
@@ -133,6 +135,7 @@ class Main extends Component {
         return (
             <div>
                 {this.signedIn() ?
+                <div>
                 <Switch>
                     <Route path="/notes/:id" render={(navProps) => { 
                         return (
@@ -150,8 +153,8 @@ class Main extends Component {
                             <NoteForm note={this.state.currentNote} updateNote={this.updateNote.bind(this)} deleteNote={this.deleteNote.bind(this)} getNote={this.getNoteById.bind(this)} />
                         </main>
                     )}} />
-                    <Route path="/" render={() => <Redirect to="/notes" />}/>
-                </Switch> :
+                    <Route path="/" render={() => <Redirect to="/notes" />}/>    
+                </Switch></div> :
                 <div>
                     <Route path="/sign-in" component={SignIn} />
                     <Route path="/" render={() => <Redirect to="/sign-in" />}/>

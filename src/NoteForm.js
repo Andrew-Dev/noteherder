@@ -66,7 +66,7 @@ class NoteForm extends React.Component {
                     <input type="text" name="title" placeholder="Title your note" value={this.state.note.title}  onChange={this.titleChange}/>
                 </p>
                 <p>
-                    <textarea name="body" placeholder="Just start typing..." onChange={this.textChange} value={this.state.note.text}></textarea>
+                    <textarea placeholder="Just start typing..." onChange={this.textChange} value={this.state.note.text}/>
                 </p>
                 </form>
                 <NavLink to={`/notes`}><button className="button" onClick={this.deleteNote}><i className="fa fa-trash-o"/></button></NavLink>
